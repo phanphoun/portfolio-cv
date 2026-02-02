@@ -98,7 +98,7 @@ export const profile: Profile = {
   // -------------------------------------------------------------------------
   name: 'Phoun Phan',
   title: 'Full Stack Software Engineer & AI/ML Engineer',
-  photo: '', // Set to '' to hide photo
+  photo: '/hero.jpg', // Set to '' to hide photo
   email: 'phanphoun855@gmail.com',
   location: 'Phnom Penh, Cambodia',
 
