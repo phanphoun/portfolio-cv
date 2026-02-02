@@ -16,7 +16,7 @@ export function Container({ children, size = 'lg', className }: ContainerProps) 
   };
 
   return (
-    <div className={cn('mx-auto px-4 sm:px-6 lg:px-8', sizes[size], className)}>
+    <div className={cn('mx-auto px-4 sm:px-6 lg:px-8', sizes[size], className)} suppressHydrationWarning>
       {children}
     </div>
   );

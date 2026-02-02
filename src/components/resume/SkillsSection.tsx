@@ -7,25 +7,25 @@ import type { Skill } from '@/data/skills';
 
 // Determine skill level color based on proficiency
 function getSkillColors(level: number): { dot: string; bg: string; border: string } {
-  if (level >= 90) return { 
-    dot: 'bg-emerald-500', 
-    bg: 'bg-emerald-50 dark:bg-emerald-950/30', 
-    border: 'border-emerald-200 dark:border-emerald-800/50' 
+  if (level >= 90) return {
+    dot: 'bg-emerald-500',
+    bg: 'bg-emerald-50 dark:bg-emerald-950/30',
+    border: 'border-emerald-200 dark:border-emerald-800/50'
   };
-  if (level >= 75) return { 
-    dot: 'bg-blue-500', 
-    bg: 'bg-blue-50 dark:bg-blue-950/30', 
-    border: 'border-blue-200 dark:border-blue-800/50' 
+  if (level >= 75) return {
+    dot: 'bg-blue-500',
+    bg: 'bg-blue-50 dark:bg-blue-950/30',
+    border: 'border-blue-200 dark:border-blue-800/50'
   };
-  if (level >= 60) return { 
-    dot: 'bg-amber-500', 
-    bg: 'bg-amber-50 dark:bg-amber-950/30', 
-    border: 'border-amber-200 dark:border-amber-800/50' 
+  if (level >= 60) return {
+    dot: 'bg-amber-500',
+    bg: 'bg-amber-50 dark:bg-amber-950/30',
+    border: 'border-amber-200 dark:border-amber-800/50'
   };
-  return { 
-    dot: 'bg-gray-400', 
-    bg: 'bg-gray-50 dark:bg-gray-800/30', 
-    border: 'border-gray-200 dark:border-gray-700/50' 
+  return {
+    dot: 'bg-gray-400',
+    bg: 'bg-gray-50 dark:bg-gray-800/30',
+    border: 'border-gray-200 dark:border-gray-700/50'
   };
 }
 
@@ -65,11 +65,12 @@ const categoryIcons: Record<string, React.ReactNode> = {
 
 function SkillChip({ skill }: { skill: Skill }) {
   const colors = getSkillColors(skill.level);
-  
+
   return (
-    <motion.div 
+    <motion.div
       whileHover={{ scale: 1.02 }}
       className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border ${colors.bg} ${colors.border} transition-shadow hover:shadow-sm`}
+      suppressHydrationWarning
     >
       <span className={`w-2 h-2 rounded-full ${colors.dot}`} />
       <span className="font-medium text-gray-800 dark:text-gray-200 text-sm">

@@ -61,6 +61,7 @@ export function Header() {
             'md:hidden overflow-hidden transition-all duration-300',
             isMenuOpen ? 'max-h-96 pb-4' : 'max-h-0'
           )}
+          suppressHydrationWarning
         >
           <nav className="flex flex-col gap-2">
             {navItems.map((item) => (
@@ -73,7 +74,7 @@ export function Header() {
                 {item.label}
               </Link>
             ))}
-            <div className="px-4 pt-2">
+            <div className="px-4 pt-2" suppressHydrationWarning>
               <Button href="/print" size="sm" className="w-full">
                 <Download className="w-4 h-4 mr-2" />
                 Download Resume

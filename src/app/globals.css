@@ -97,6 +97,7 @@ a {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -107,6 +108,7 @@ a {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -118,6 +120,7 @@ a {
     opacity: 0;
     transform: translateY(-20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -129,6 +132,7 @@ a {
     opacity: 0;
     transform: scale(0.95);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -152,11 +156,25 @@ a {
 }
 
 /* Stagger Animation Delays */
-.stagger-1 { animation-delay: 0.1s; }
-.stagger-2 { animation-delay: 0.2s; }
-.stagger-3 { animation-delay: 0.3s; }
-.stagger-4 { animation-delay: 0.4s; }
-.stagger-5 { animation-delay: 0.5s; }
+.stagger-1 {
+  animation-delay: 0.1s;
+}
+
+.stagger-2 {
+  animation-delay: 0.2s;
+}
+
+.stagger-3 {
+  animation-delay: 0.3s;
+}
+
+.stagger-4 {
+  animation-delay: 0.4s;
+}
+
+.stagger-5 {
+  animation-delay: 0.5s;
+}
 
 /* Line Clamp Utilities */
 .line-clamp-2 {
@@ -195,6 +213,7 @@ a {
    PRINT STYLES
    ================================ */
 @media print {
+
   /* Hide non-printable elements */
   .no-print,
   header:not(.print-header),
@@ -274,11 +293,15 @@ a {
   }
 
   /* Page breaks */
-  h1, h2, h3 {
+  h1,
+  h2,
+  h3 {
     page-break-after: avoid;
   }
 
-  p, ul, ol {
+  p,
+  ul,
+  ol {
     orphans: 3;
     widows: 3;
   }
@@ -294,12 +317,15 @@ a {
     border-collapse: collapse;
   }
 
-  table, th, td {
+  table,
+  th,
+  td {
     border: 1pt solid #ddd;
   }
 
   /* Cards become simple blocks */
-  .card, [class*="Card"] {
+  .card,
+  [class*="Card"] {
     border: 1pt solid #ddd !important;
     padding: 0.5cm !important;
     margin-bottom: 0.3cm !important;
@@ -307,14 +333,16 @@ a {
   }
 
   /* Badges become inline text */
-  .badge, [class*="Badge"] {
+  .badge,
+  [class*="Badge"] {
     border: 1pt solid #999 !important;
     padding: 0.1cm 0.2cm !important;
     margin: 0.1cm !important;
   }
 
   /* Progress bars become text */
-  .progress, [class*="Progress"] {
+  .progress,
+  [class*="Progress"] {
     height: auto !important;
     background: none !important;
   }
@@ -324,7 +352,7 @@ a {
     display: block !important;
   }
 
-  .grid > * {
+  .grid>* {
     margin-bottom: 0.3cm;
   }
 
@@ -334,7 +362,8 @@ a {
   }
 
   /* Container max width */
-  .container, [class*="Container"] {
+  .container,
+  [class*="Container"] {
     max-width: 100% !important;
     padding: 0 !important;
   }
