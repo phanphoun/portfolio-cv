@@ -172,8 +172,8 @@ export const projects: Project[] = [
     category: 'Web Application',
     role: 'Lead Developer',
     duration: '6 months',
-    liveUrl: 'https://example-ecommerce.com',
-    githubUrl: 'https://github.com/alexjohnson/ecommerce',
+    // liveUrl: undefined,  // Add your real demo URL here
+    // githubUrl: undefined,  // Add your real repository URL here
     featured: true,
     highlights: [
       'Processed $2M+ in transactions',
@@ -201,8 +201,8 @@ export const projects: Project[] = [
     category: 'SaaS',
     role: 'Full-Stack Developer',
     duration: '4 months',
-    liveUrl: 'https://taskflow-demo.com',
-    githubUrl: 'https://github.com/alexjohnson/taskflow',
+    // liveUrl: undefined,  // Add your real demo URL here
+    // githubUrl: undefined,  // Add your real repository URL here
     featured: true,
     highlights: [
       '5K+ active users',
@@ -254,7 +254,7 @@ export const projects: Project[] = [
     role: 'Mobile Developer',
     duration: '5 months',
     // liveUrl: undefined,  // App store link would go here
-    githubUrl: 'https://github.com/alexjohnson/fittrack',
+    // githubUrl: undefined,  // Add your real repository URL here
     featured: false,
     highlights: [
       'iOS & Android support',
@@ -280,7 +280,7 @@ export const projects: Project[] = [
     role: 'Creator & Maintainer',
     duration: 'Ongoing',
     // liveUrl: undefined,  // CLI tools usually don't have live URLs
-    githubUrl: 'https://github.com/alexjohnson/devtoolkit',
+    // githubUrl: undefined,  // Add your real repository URL here
     featured: false,
     highlights: [
       '2K+ GitHub stars',
@@ -394,3 +394,4 @@ export function getRelatedProjects(
     .filter((p) => p.slug !== currentSlug && p.category === current.category)
     .slice(0, limit);
 }
+

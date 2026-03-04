@@ -1,14 +1,10 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { profile } from '@/data/profile';
 
-export async function GET() {
-  // For now, redirect to the print page
-  // In production, you could integrate with a PDF service or use puppeteer
-  
-  // Option 1: Redirect to print page with auto-print
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-  
-  // Return JSON with instructions for downloading PDF
+export async function GET(request: NextRequest) {
+  const configuredBaseUrl = process.env.NEXT_PUBLIC_BASE_URL?.trim();
+  const baseUrl = (configuredBaseUrl || request.nextUrl.origin).replace(/\/$/, '');
+
   return NextResponse.json({
     message: 'PDF Generation',
     instructions: [

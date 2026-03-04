@@ -16,9 +16,18 @@ const contactSchema = z.object({
 });
 
 type ContactFormData = z.infer<typeof contactSchema>;
+type SubmissionStatus = 'idle' | 'loading' | 'success' | 'handoff' | 'error';
+
+interface ContactApiResponse {
+  status?: 'sent' | 'handoff';
+  message?: string;
+  error?: string;
+  fallbackUrl?: string;
+}
 
 export function ContactForm() {
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [status, setStatus] = useState<SubmissionStatus>('idle');
+  const [statusMessage, setStatusMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
   const {
@@ -32,6 +41,7 @@ export function ContactForm() {
 
   const onSubmit = async (data: ContactFormData) => {
     setStatus('loading');
+    setStatusMessage('');
     setErrorMessage('');
 
     try {
@@ -41,32 +51,53 @@ export function ContactForm() {
         body: JSON.stringify(data),
       });
 
+      const result = (await response.json().catch(() => null)) as ContactApiResponse | null;
+
       if (!response.ok) {
-        throw new Error('Failed to send message');
+        throw new Error(result?.error || 'Failed to send message');
+      }
+
+      if (result?.status === 'handoff' && result.fallbackUrl) {
+        setStatus('handoff');
+        setStatusMessage(
+          result.message ||
+            'Your email app should open with this message pre-filled.'
+        );
+        window.location.href = result.fallbackUrl;
+        return;
       }
 
       setStatus('success');
+      setStatusMessage(result?.message || 'Message sent successfully.');
       reset();
-    } catch {
+    } catch (error) {
       setStatus('error');
-      setErrorMessage('Failed to send message. Please try again later.');
+      setErrorMessage(
+        error instanceof Error
+          ? error.message
+          : 'Failed to send message. Please try again later.'
+      );
     }
   };
 
-  if (status === 'success') {
+  if (status === 'success' || status === 'handoff') {
     return (
       <div className="text-center py-12">
         <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
-          <CheckCircle className="w-8 h-8 text-green-600 dark:text-green-400" />
+          {status === 'success' ? (
+            <CheckCircle className="w-8 h-8 text-green-600 dark:text-green-400" />
+          ) : (
+            <Send className="w-8 h-8 text-green-600 dark:text-green-400" />
+          )}
         </div>
         <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-          Message Sent!
+          {status === 'success' ? 'Message Sent!' : 'Finish In Your Email App'}
         </h3>
         <p className="text-gray-600 dark:text-gray-400 mb-6">
-          Thank you for reaching out. I&apos;ll get back to you soon.
+          {statusMessage}
         </p>
         <Button onClick={() => setStatus('idle')} variant="outline">
-          Send Another Message
+          {status === 'success' ? 'Send Another Message' : 'Edit Message'}
         </Button>
       </div>
     );
@@ -82,7 +113,6 @@ export function ContactForm() {
       )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        {/* Name */}
         <div>
           <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             Name
@@ -104,7 +134,6 @@ export function ContactForm() {
           )}
         </div>
 
-        {/* Email */}
         <div>
           <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             Email
@@ -127,7 +156,6 @@ export function ContactForm() {
         </div>
       </div>
 
-      {/* Subject */}
       <div>
         <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
           Subject
@@ -149,7 +177,6 @@ export function ContactForm() {
         )}
       </div>
 
-      {/* Message */}
       <div>
         <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
           Message
@@ -171,7 +198,6 @@ export function ContactForm() {
         )}
       </div>
 
-      {/* Submit Button */}
       <Button type="submit" disabled={status === 'loading'} className="w-full sm:w-auto">
         {status === 'loading' ? (
           <>

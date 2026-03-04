@@ -7,7 +7,6 @@ import { SocialLinks } from '@/components/contact/SocialLinks';
 export function ProfileHeader() {
   return (
     <header className="flex flex-col md:flex-row items-center gap-8 mb-12">
-      {/* Profile Photo */}
       <div className="relative w-40 h-40 rounded-full overflow-hidden border-4 border-blue-600 shadow-lg flex-shrink-0 bg-gray-200 dark:bg-gray-700" suppressHydrationWarning>
         {hasProfilePhoto() ? (
           <Image
@@ -19,7 +18,7 @@ export function ProfileHeader() {
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-4xl font-bold text-gray-400 dark:text-gray-500">
-            {profile.name.split(' ').map(n => n[0]).join('')}
+            {profile.name.split(' ').map((name) => name[0]).join('')}
           </div>
         )}
       </div>
@@ -32,7 +31,6 @@ export function ProfileHeader() {
           {profile.title}
         </p>
 
-        {/* Contact Info */}
         <div className="flex flex-wrap justify-center md:justify-start gap-4 text-sm text-gray-600 dark:text-gray-400 mb-6">
           <a
             href={`mailto:${profile.email}`}
@@ -41,26 +39,29 @@ export function ProfileHeader() {
             <Mail className="w-4 h-4" />
             {profile.email}
           </a>
-          <span className="flex items-center gap-1.5">
-            <Phone className="w-4 h-4" />
-            {profile.phone}
-          </span>
+          {profile.phone && (
+            <span className="flex items-center gap-1.5">
+              <Phone className="w-4 h-4" />
+              {profile.phone}
+            </span>
+          )}
           <span className="flex items-center gap-1.5">
             <MapPin className="w-4 h-4" />
             {profile.location}
           </span>
-          <a
-            href={profile.website}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-          >
-            <Globe className="w-4 h-4" />
-            Portfolio
-          </a>
+          {profile.website && (
+            <a
+              href={profile.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            >
+              <Globe className="w-4 h-4" />
+              Portfolio
+            </a>
+          )}
         </div>
 
-        {/* Actions */}
         <div className="flex flex-wrap gap-4 justify-center md:justify-start">
           <SocialLinks />
           <Button href="/print">

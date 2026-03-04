@@ -1,21 +1,29 @@
-import { Mail, Phone, MapPin, Calendar } from 'lucide-react';
+import { Mail, Phone, MapPin, Calendar, type LucideIcon } from 'lucide-react';
 import { profile } from '@/data/profile';
 import { Section, Card, CardContent } from '@/components/ui';
 import { ContactForm } from './ContactForm';
 import { SocialLinks } from './SocialLinks';
 
+interface ContactInfoItem {
+  icon: LucideIcon;
+  label: string;
+  value: string;
+  href?: string;
+}
+
 export function ContactSection() {
-  const contactInfo = [
+  const contactInfo: ContactInfoItem[] = [
     { icon: Mail, label: 'Email', value: profile.email, href: `mailto:${profile.email}` },
-    { icon: Phone, label: 'Phone', value: profile.phone, href: `tel:${profile.phone}` },
+    profile.phone
+      ? { icon: Phone, label: 'Phone', value: profile.phone, href: `tel:${profile.phone}` }
+      : null,
     { icon: MapPin, label: 'Location', value: profile.location },
     { icon: Calendar, label: 'Availability', value: 'Open to opportunities' },
-  ];
+  ].filter((item): item is ContactInfoItem => item !== null);
 
   return (
     <Section id="contact" title="Get In Touch" subtitle="Let's discuss your next project">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Contact Info */}
         <div className="lg:col-span-1">
           <Card>
             <CardContent className="p-6 space-y-6">
@@ -56,7 +64,6 @@ export function ContactSection() {
           </Card>
         </div>
 
-        {/* Contact Form */}
         <div className="lg:col-span-2">
           <Card>
             <CardContent className="p-6">
